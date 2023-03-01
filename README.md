@@ -28,7 +28,7 @@ In this section, you’ll use Python and SQLAlchemy to do a basic climate analys
 
 7. Use Pandas to print the summary statistics for the precipitation data.
 
-##Station Analysis
+## Station Analysis
 1. Design a query to calculate the total number of stations in the dataset.
 
 2. Design a query to find the most-active stations (that is, the stations that have the most rows). To do so, complete the following steps:
@@ -49,7 +49,7 @@ Plot the results as a histogram with bins=12, as the following image shows:
 A screenshot depicts the histogram.
 5. Close your session.
 
-##Part 2: Design Your Climate App
+## Part 2: Design Your Climate App
 Now that you’ve completed your initial analysis, you’ll design a Flask API based on the queries that you just developed. To do so, use Flask to create your routes as follows:
 
 /
