@@ -1,9 +1,9 @@
 # sqlalchemy-challenge
 
-##Part 1: Analyze and Explore the Climate Data
+## Part 1: Analyze and Explore the Climate Data
 In this section, you’ll use Python and SQLAlchemy to do a basic climate analysis and data exploration of your climate database. Specifically, you’ll use SQLAlchemy ORM queries, Pandas, and Matplotlib. To do so, complete the following steps:
 
-1. Note that you’ll use the provided files (climate_starter.ipynb and hawaii.sqlite) to complete your climate analysis and data exploration.
+1. Note that you’ll use the provided files (climate_starter.ipynb and hawaii.sqlite) to complete your climate analysis and data         exploration.
 
 2. Use the SQLAlchemy create_engine() function to connect to your SQLite database.
 
@@ -13,7 +13,7 @@ In this section, you’ll use Python and SQLAlchemy to do a basic climate analys
 
 5. Perform a precipitation analysis and then a station analysis by completing the steps in the following two subsections.
 
-##Precipitation Analysis
+## Precipitation Analysis
 1.Find the most recent date in the dataset.
 
 2. Using that date, get the previous 12 months of precipitation data by querying the previous 12 months of data.
