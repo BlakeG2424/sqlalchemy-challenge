@@ -38,8 +38,8 @@ def welcome():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/temp/yyyy-mm-dd<br/>"
-        f"/api/v1.0/temp/start/yyyy-mm-dd/yyyy-mm-dd<br/>"
+        f"/api/v1.0/temp/<start><br>"
+        f"/api/v1.0/temp/<start>/<end>"
 
     )
 
@@ -96,9 +96,66 @@ def tobs():
     return jsonify(tobs_list)
 
 
+@app.route("/api/v1.0/temp/<start><br>")
+@app.route("/api/v1.0/temp/<start>/<end>")
+def stats(start=None, end=None):
+    """Return TMIN, TAVG, TMAX."""
+    
+    # Select statement
+    sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
+
+    if not end:
+        # start = dt.datetime.strptime(start, "%m/%d/%Y")
+        # # calculate TMIN, TAVG, TMAX for dates greater than start
+        # results = session.query(*sel).\
+        #     filter(Measurement.date >= start).all()
+        # # Unravel results into a 1D array and convert to a list
+        # temps = list(np.ravel(results))
+        # return jsonify(temps)
+
+        start = dt.datetime.strptime(start, "%m%d%Y")
+        return_list = []
+
+        results = session.query(*sel).\
+            filter(Measurement.date >= start).all()
+        
+        for date, min, avg, max in results:
+         ct_dict = {}
+        ct_dict["Date"] = date
+        ct_dict["TMIN"] = min
+        ct_dict["TAVG"] = avg
+        ct_dict["TMAX"] = max
+        return_list.append(ct_dict)
+
+        session.close()
+
+        #temps = return_list(np.ravel(results))
+        return jsonify(return_list)
+
+    # calculate TMIN, TAVG, TMAX with start and stop
+    sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
 
 
+    return_list = []
 
+    results = session.query(*sel).\
+        filter(Measurement.date >= start).\
+        filter(Measurement.date <= end).all()
+    
 
+    for date, min, avg, max in results:
+        ct_dict = {}
+        ct_dict["Date"] = date
+        ct_dict["TMIN"] = min
+        ct_dict["TAVG"] = avg
+        ct_dict["TMAX"] = max
+        return_list.append(ct_dict)
+
+    session.close()
+
+    # Unravel results into a 1D array and convert to a list
+    #temps = return_list(np.ravel(results))
+    return jsonify(return_list) 
+  
 if __name__ == '__main__':
     app.run(debug=True)
